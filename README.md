@@ -8,3 +8,5 @@ GAME RULES:
 ->You or your opponent cannot skip chances.
 
 WINNING Situation :- The One Who picks the Red box Wins the game.
+
+Note :- To Start the Game Run Start.html file
