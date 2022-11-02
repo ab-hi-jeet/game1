@@ -1,0 +1,171 @@
+<html>
+    <head>
+        <title>Multiplayer Mode</title>
+    </head>
+    <style>
+        body{
+            color:white;
+            text-align: center;
+            align-items: center;
+            background-color: black;
+        }
+        #d1,#d2,#d3,#d4,#d5,#d6,#d7,#d8,#d9,#d10,#d11{
+            background-color: aqua;
+            width: 30px;
+            height: 30px;
+            float:left;
+            margin: 0px 10px;
+            
+        }
+        #d12{
+            background-color: red;
+            width: 30px;
+            height: 30px;  
+            float: left;
+            margin: 0px 10px;
+        }
+        #mainDiv{
+            display: inline-block;
+        }
+        #s1{
+            color: red;
+        }
+        #h1{
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font: bold;
+        }
+        h1#gameName{
+            font-size: 50px;
+            border: 2px solid yellow;
+        }
+
+
+        button {
+            background-color:aqua; /* Green */
+            border: none;
+            color: blue;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            width: 25%;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: yellow;
+            color: black;
+            border: 2px solid grey;
+        }
+        h2{
+            color: greenyellow;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+        #win{
+            color: orange;
+        }
+
+    </style>
+    <body>
+        
+        <h1 id="gameName">Pick The <span id="s1">RED BOX</span></h1>
+        
+        <br/>
+            <div id="mainDiv">
+            <div id="d1"></div>
+            <div id="d2"></div>
+            <div id="d3"></div>
+            <div id="d4"></div>
+            <div id="d5"></div>
+            <div id="d6"></div>
+            <div id="d7"></div>
+            <div id="d8"></div>
+            <div id="d9"></div>
+            <div id="d10"></div>
+            <div id="d11"></div>
+            <div id="d12"></div>
+        </div>
+        <br/><br/>
+        <h3 id="result"></h3>
+        <h1 id="win"></h1>
+
+        <h2 id="turn"></h1>
+        <br/><br/><br/><br/>
+        <div id="btn">
+        <button class="btn" id="btn1"  onclick="rem1()">Remove 1 BOX</button><br/><br/>
+        <button class="btn" id="btn2"  onclick="rem2()">Remove 2 BOXES</button><br/><br/>
+        <button class="btn" id="btn3"  onclick="rem3()">Remove 3 BOXES</button><br/><br/>
+        </div>
+    <script>
+        let c = 0
+        let p = 0;
+
+        function $(params) {
+            return document.getElementById(params)
+        }
+        function togglePlayer(){
+            if(p == 1)
+                p = 2;
+            else
+                p = 1;
+            }
+            function checkWin(){
+                if(c>=12){
+                    togglePlayer();
+                    $("win").innerHTML = "Player " + p + " WINS!!!!";
+                    $("turn").innerHTML = "";
+                }
+            }
+            
+            function printResult(by,howMuch){
+                $("result").innerHTML = "Player " + by + " Removed " + howMuch + (howMuch>1?" Boxes":" Box");
+            }
+            
+            function checkBtn(){
+                if (c == 10)
+                    $("btn3").style.display = "none";
+                else if(c == 11){
+                    $("btn2").style.display = "none";
+                    $("btn3").style.display = "none";
+                }
+                else if( c == 12)
+                    $("btn").style.display = "none";
+            }
+
+            function rem1(){
+                $("d"+(c+=1)).style.display = "none";
+                printResult(p,1);
+                togglePlayer();
+                $("turn").innerHTML = "Player " + p + "\'s turn";
+                checkWin();  
+                checkBtn();
+            }
+            
+            function rem2(){
+                $("d"+(c+=1)).style.display = "none";
+                $("d"+(c+=1)).style.display = "none";
+                printResult(p,2);
+                togglePlayer();
+                $("turn").innerHTML = "Player " + p + "\'s turn";
+                checkWin();
+                checkBtn();
+            }
+
+            function rem3(){
+                $("d"+(c+=1)).style.display = "none";
+                $("d"+(c+=1)).style.display = "none";
+                $("d"+(c+=1)).style.display = "none";
+                printResult(p,3);
+                togglePlayer();
+                $("turn").innerHTML = "Player " + p + "\'s turn";
+                checkWin();
+                checkBtn();
+            }
+            togglePlayer();
+            $("turn").innerHTML = "Player " + p + "\'s turn";
+
+    </script>
+    </body>
+</html>

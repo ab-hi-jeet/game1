@@ -1,0 +1,186 @@
+<html>
+    <head>
+        <title>Noob Bot</title>
+    </head>
+    <style>
+        body{
+            text-align: center;
+            align-items: center;
+            color:white;
+            background-color: black;
+        }
+        #d1,#d2,#d3,#d4,#d5,#d6,#d7,#d8,#d9,#d10,#d11{
+            background-color: aqua;
+            width: 30px;
+            height: 30px;
+            float:left;
+            margin: 0px 10px;
+            
+        }
+        #d12{
+            background-color: red;
+            width: 30px;
+            height: 30px;  
+            float: left;
+            margin: 0px 10px;
+        }
+        #mainDiv{
+            display: inline-block;
+        }
+        #s1{
+            color: red;
+        }
+        #h1{
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font: bold;
+        }
+
+        #win{
+            font-size: 40px;
+            font-weight: bold;
+            color: red;
+        }
+        h1#gameName{
+            font-size: 50px;
+            border: 2px solid yellow;
+        }
+
+        button {
+            background-color:aqua; /* Green */
+            border: none;
+            color: blue;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            width: 25%;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: yellow;
+            color: black;
+            border: 2px solid grey;
+        }
+
+    </style>
+    <body>
+        
+        <h1 id="gameName">Pick The <span id="s1">RED BOX</span></h1>
+        
+        <br/>
+            <div id="mainDiv">
+            <div id="d1"></div>
+            <div id="d2"></div>
+            <div id="d3"></div>
+            <div id="d4"></div>
+            <div id="d5"></div>
+            <div id="d6"></div>
+            <div id="d7"></div>
+            <div id="d8"></div>
+            <div id="d9"></div>
+            <div id="d10"></div>
+            <div id="d11"></div>
+            <div id="d12"></div>
+        </div>
+        <br/><br/>
+        <h3 id="result"></h3>
+        <h3 id="win"></h3>
+        <br/><br/><br/><br/>
+        <div id="btn">
+        <button class="buttons" id="btn1" onclick="rem1()">Remove 1 BOX</button><br/><br/>
+        <button class="buttons" id="btn2" onclick="rem2()">Remove 2 BOXES</button><br/><br/>
+        <button class="buttons" id="btn3" onclick="rem3()">Remove 3 BOXES</button><br/><br/>
+        </div>
+
+    <script>
+        let c = 0
+
+        function $(params) {
+            return document.getElementById(params)
+        }
+
+        function checkWin(){
+            checkBtn();
+            if(c>=12){
+                    $("win").innerHTML = "!!!!CONGRATS YOU WON!!!!";
+                    process.exit(0);    
+            }
+
+        }
+
+        function checkBtn(){
+                if (c == 10)
+                    $("btn3").style.display = "none";
+                else if(c == 11){
+                    $("btn2").style.display = "none";
+                    $("btn3").style.display = "none";
+                }
+                else if( c == 12)
+                    remAllButton();
+        }
+
+        function remAllButton() {
+            $("btn").style.display = "none";
+        }
+
+        function rem1(){
+            remAllButton();
+            $("d"+(c+=1)).style.display = "none";
+            $("result").innerHTML = "You Removed 1 Box";
+            checkWin();
+            $("win").innerHTML = "Wait For Computer to Play";
+            setTimeout(function(){
+                compRemove();
+            },2000);
+        }
+
+        function rem2(){
+            remAllButton();
+            $("d"+(c+=1)).style.display = "none";
+            $("d"+(c+=1)).style.display = "none";
+            $("result").innerHTML = "You Removed 2 Boxes";
+            checkWin();
+            $("win").innerHTML = "Wait For Computer to Play";
+            setTimeout(function(){
+                compRemove();
+            },2000);
+        }
+
+        function rem3(){
+            remAllButton();
+            $("d"+(c+=1)).style.display = "none";
+            $("d"+(c+=1)).style.display = "none";
+            $("d"+(c+=1)).style.display = "none";
+            $("result").innerHTML = "You Removed 3 Boxes";
+            checkWin();
+            $("win").innerHTML = "Wait For Computer to Play";
+            setTimeout(function(){
+                compRemove();
+            },2000);
+
+        }
+        function compRemove() {
+            var x = Math.floor((Math.random() * 3) + 1);
+            x = (c == 11) ? 1 : x;
+            x = (c == 10) ? Math.floor((Math.random() * 2) + 1) : x;
+            const y = x;
+            while(x!=0){
+                $("d"+(c+=1)).style.display = "none";
+                x--;
+            }
+            $("result").innerHTML = "Computer Removed "+y+(y>1 ? " Boxes" :" Box");
+            $("win").innerHTML = "";
+            $("btn").style.display = "block";
+            checkBtn();
+            
+            if(c>=12){
+            $("win").innerHTML = "Computer WON!!!";
+            return;
+        }
+        }
+    </script>
+    </body>
+</html>
